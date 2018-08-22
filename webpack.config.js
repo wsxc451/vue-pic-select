@@ -2,13 +2,16 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+      filename: 'vue-pic-select.js',
+      library: "VuePicSelect",
+      libraryTarget: "umd",
+      umdNamedDefine: true
   },
-  module: {
+    module: {
     rules: [
       {
         test: /\.css$/,
@@ -53,7 +56,15 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  externals: {
+      vue: {
+          root: 'Vue',
+          commonjs: 'vue',
+          commonjs2: 'vue',
+          amd: 'vue'
+      }
+  },
 }
 
 if (process.env.NODE_ENV === 'production') {
