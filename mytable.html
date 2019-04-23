@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <h1>你好，曹志明！</h1>
+
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+	<script src="data.js"></script>
+	<div id="app">
+		<table class="table table-bordered">
+			<tbody>
+			<template v-for="data in datas">
+					<template v-for="(value,key) in data">
+							<tr v-for="(valueData,keyData)  in value">
+								<template v-if="keyData==0">
+									
+									
+								</template>
+								<td v-if="keyData==0">{{key}}</td>
+								
+								
+								
+								<td v-else></td>
+								<template v-for="(valueDataInner,keyDataInner)  in valueData">
+									  	<template v-for="(valueData2,keyData2)  in valueDataInner">
+											 <td>{{keyData2+1}} 季度</td>	 
+										</template>  
+								</template>
+							</tr>
+							 
+					</template>
+					
+			</template>
+			</tbody>
+			</table>
+			
+			
+	</div>
+	
+	
+	<script type="text/javascript">
+		var app = new Vue({
+			  el: '#app',
+			  data: {
+				 datas:[],
+				 tableDatas:[]
+			  },
+			  mounted(){
+				 this.datas = this.loadData();
+				 console.log(...this.datas);
+				 let rowColInfo=this.getRowAndCol();
+				 this.initTableDatas(rowColInfo);
+				 console.log(rowColInfo);
+			  },
+			  methods:{
+				  loadData(){
+					  //模拟数据来源  load Data from local Json
+					 return tempData;
+		     	  },
+				  getRowAndCol(){
+					  let nian = 1;
+					  let jidu = 4;
+					  let col = 1*8; //前期只统计及上海地区的,所以数量为1,8是固定列数;大型社区4+中型社区4
+					  return {row:nian+jidu*4,col:col};
+					  
+				  },
+				  initTableDatas(rowColInfo){
+					  let {row,col} = rowColInfo;
+					  console.log(row,col);
+					  for(let i=0;i<row;i++){
+						  for(let j=0;j<col;j++){
+							  this.tableDatas[i] = i+','+j;
+						  }
+					  }
+				  }
+				  
+			  }
+			})
+	</script>
+  </body>
+</html>
